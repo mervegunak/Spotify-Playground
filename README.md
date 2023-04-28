@@ -1,6 +1,6 @@
 # Spotify-Auto-Playlistify-Sculptor
 
-This project is a collection of Python scripts that interact with the Spotify Web API to extract information related to user and playlist details, as well as to retrieve tracks and associated details within a given playlist.
+This project is a collection of Python scripts that interact with the Spotify Web API to extract information related to user and playlist details, as well as to retrieve tracks and associated details of a users public playlists.
 
 **Prerequisites:**
 
