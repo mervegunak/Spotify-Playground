@@ -1,1 +1,1 @@
-# Spotify_Playground
+# Spotify Playground
