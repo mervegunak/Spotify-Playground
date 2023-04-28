@@ -13,5 +13,6 @@ print("Playlist_Names:",spotify_user.playlists_name)
 print("Playlist_IDs:",spotify_user.playlists_id)
 
 # This for loop generates all of the user playlists tracks with different csv's.
-for id in range (0, len(spotify_user.playlists_id)):
-    user_playlists_track.get_tracks_in_playlist(spotify_user.playlists_id[id])
+for id, playlist_id in enumerate(spotify_user.playlists_id):
+    playlist_name = spotify_user.playlists_name[id]
+    user_playlists_track.get_tracks_in_playlist(playlist_id, playlist_name)
