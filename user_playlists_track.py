@@ -20,7 +20,7 @@ def get_tracks_in_playlist(playlist_id):
     tracks = []
 
     # Create Playlists folder if it does not exist
-    folder_path = './Playlists'
+    folder_path = './Spotify_Playground/Playlists'
     if not os.path.exists(folder_path):
         os.makedirs(folder_path)
 
@@ -64,7 +64,7 @@ def get_tracks_in_playlist(playlist_id):
     # Create DataFrame from list of tracks
     df = pd.DataFrame(tracks)
     
-    filename = f"./Playlists/tracks_in_playlist_{playlist_id}.csv"
+    filename = f"./Spotify_Playground/Playlists/tracks_in_playlist_{playlist_id}.csv"
 
     # Save DataFrame to CSV file
     df.to_csv(filename, index=True)
