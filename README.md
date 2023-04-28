@@ -1,4 +1,4 @@
-# Spotify-Auto-Playlistify-Sculptor
+# Spotify-Playground
 
 This project is a collection of Python scripts that interact with the Spotify Web API to extract information related to user and playlist details, as well as to retrieve tracks and associated details of a users public playlists.
 
@@ -16,7 +16,8 @@ Before using these scripts, there are a few prerequisites that need to be set up
     base64 
     os 
     dotenv 
-    re pandas
+    re 
+    pandas
     
    **Example**: 
    
