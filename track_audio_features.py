@@ -53,7 +53,7 @@ def get_tracks_in_playlist(playlist_id):
     return track_unique_ids
 
 def track_features(track_id):
-    # Spotify API endpoint for playlists
+    # Spotify API endpoint for audio-features
     url = f'https://api.spotify.com/v1/audio-features/{track_id}'
         
     access_token = get_spotify_token.get_token()
