@@ -18,7 +18,7 @@ def get_tracks_in_playlist(playlist_id, playlist_name):
     offset = 0
     total_number_of_tracks = None
     tracks = []
-    track_unique_ids = []
+    tracks_unique_ids = []
 
     # Create Playlists folder if it does not exist
     directory = "./Spotify_Playground/Playlists/"
@@ -58,7 +58,7 @@ def get_tracks_in_playlist(playlist_id, playlist_name):
                 'Album' : album_name,
                 'Artist Genre' : artist_genre
             })
-            track_unique_ids.append(track_ids)
+            tracks_unique_ids.append(track_ids)
 
         # Increment the offset by the limit for the next request
         offset += limit
