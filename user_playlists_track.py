@@ -18,14 +18,12 @@ def get_tracks_in_playlist(playlist_id, playlist_name):
     offset = 0
     total_number_of_tracks = None
     tracks = []
-    track_ids = []
+    track_unique_ids = []
 
+    # Create Playlists folder if it does not exist
     directory = "./Spotify_Playground/Playlists/"
     if not os.path.exists(directory):
         os.makedirs(directory)
-
-    filename = f"{directory}tracks_in_playlist_{playlist_name}.csv"
-
 
     # Make requests until all tracks have been fetched to the csv
     while total_number_of_tracks is None or offset < total_number_of_tracks:
@@ -46,41 +44,50 @@ def get_tracks_in_playlist(playlist_id, playlist_name):
         for track in tracks_response:
             track_ids = track['track']['id']
             track_name = track['track']['name']
+            artist_id = track['track']['artists'][0]['id']
             artist_name = track['track']['artists'][0]['name']
-            artist_id = ", ".join(
-                [artist["id"] for artist in track["track"]["artists"]]
-            )
             album_name = track['track']['album']['name']
+            album_id = track['track']['album']['id']
+            artist_genre = get_artist_genre(artist_id)
             tracks.append({
-                'ID': track_ids,
+                'Track_Id': track_ids,
                 'Track': track_name,
+                'Artist_Id': artist_id,
                 'Artist': artist_name,
-                'Album' : album_name
+                'Album_Id': album_id,
+                'Album' : album_name,
+                'Artist Genre' : artist_genre
             })
+            track_unique_ids.append(track_ids)
 
         # Increment the offset by the limit for the next request
         offset += limit
-    
-    def get_artist(artist_id):
-        url_arists = f'https://api.spotify.com/v1/artists/{artist_id}'
-
-        access_token = get_spotify_token.get_token()
-        headers = {'Authorization': 'Bearer ' + access_token}
-        response_artists = requests.get(url_arists, headers=headers)
-
-        artists_json = response_artists.json()
-        genres = artists_json['genres'][0]
-
-        genres.append({
-        'Genres': genres
-        })       
 
     # Create DataFrame from list of tracks
     df = pd.DataFrame(tracks)
-    
-    filename = f"{directory}tracks_in_playlist_{playlist_name}.csv"
 
+    filename = f"{directory}tracks_in_playlist_{playlist_name}.csv"
+    
     # Save DataFrame to CSV file
     df.to_csv(filename, index=True)
 
     return df
+
+def get_artist_genre(artist_id):
+    # Spotify API endpoint
+    url_artists = f'https://api.spotify.com/v1/artists/{artist_id}'
+
+    # Get access token from authentication response
+    access_token = get_spotify_token.get_token()
+
+    # Set headers with the access token
+    headers = {'Authorization': 'Bearer ' + access_token}
+
+    # Send GET request to Spotify API
+    response = requests.get(url_artists, headers=headers)
+
+    # get artist genre
+    genre_response = response.json()
+    artist_genre = genre_response['genres']
+
+    return artist_genre
